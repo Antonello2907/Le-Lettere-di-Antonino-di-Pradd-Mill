@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Lettere di Antonino – di Pradd Mill</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="hero">
+    <div class="overlay">
+      <h1>Le Lettere di Antonino</h1>
+      <p>La chiamata nella chiamata – Si diventa ciò che si crede</p>
+      <a href="#lettere" class="btn">Leggi le Lettere</a>
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="#lettere">Lettere</a></li>
+      <li><a href="#libri">Libri</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ul>
+  </nav>
+
+  <!-- SEZIONE LETTERE -->
+  <section id="lettere" class="content">
+    <h2>Ultime Lettere</h2>
+    <article>
+      <h3>Lettera 1 – Il viaggio</h3>
+      <p>Un estratto della tua prima lettera o riflessione…</p>
+      <a href="#">Leggi di più</a>
+    </article>
+    <article>
+      <h3>Lettera 2 – La luce</h3>
+      <p>Breve introduzione alla seconda lettera…</p>
+      <a href="#">Leggi di più</a>
+    </article>
+  </section>
+
+  <!-- SEZIONE LIBRI -->
+  <section id="libri" class="content">
+    <h2>I Libri</h2>
+    <p>Qui potrai inserire i link per scaricare o acquistare i tuoi libri
+       quando saranno disponibili.</p>
+  </section>
+
+  <!-- CONTATTI -->
+  <section id="contatti" class="content">
+    <h2>Contatti</h2>
+    <p>Scrivimi: <a href="mailto:info@tuodominio.it">info@tuodominio.it</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Le Lettere di Antonino – di Pradd Mill</p>
+  </footer>
+
+</body>
+</html>
