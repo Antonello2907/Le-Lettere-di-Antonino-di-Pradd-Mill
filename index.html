@@ -5,16 +5,307 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Le Lettere di Antonino – di Pradd Mill</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* TEMA SPIRITUALE - COLORI PRINCIPALI */
+    :root {
+      --colore-notte: #1a1a2e;
+      --colore-crepuscolo: #16213e;
+      --colore-oro: #d4af37;
+      --colore-oro-trasparente: rgba(212, 175, 55, 0.1);
+      --colore-testo: #f1f1f1;
+      --colore-testo-secondario: #b8b8b8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--colore-notte), var(--colore-crepuscolo));
+      color: var(--colore-testo);
+      font-family: 'Georgia', serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* HEADER EROICO */
+    .hero {
+      background: linear-gradient(rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.9)), 
+                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%231a1a2e" width="1200" height="800"/><circle fill="%23d4af37" opacity="0.05" cx="200" cy="200" r="100"/><circle fill="%23d4af37" opacity="0.03" cx="800" cy="400" r="150"/><circle fill="%23d4af37" opacity="0.07" cx="1000" cy="150" r="80"/></svg>');
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      color: var(--colore-oro);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      font-weight: normal;
+      letter-spacing: 2px;
+    }
+
+    .hero .sottotitolo {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+      color: var(--colore-testo-secondario);
+      font-style: italic;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: transparent;
+      color: var(--colore-oro);
+      border: 2px solid var(--colore-oro);
+      text-decoration: none;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+      margin: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--colore-oro);
+      color: var(--colore-notte);
+      transform: translateY(-2px);
+    }
+
+    /* NAVIGATION */
+    .navbar {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 1rem;
+    }
+
+    .navbar li {
+      margin: 0 1.5rem;
+    }
+
+    .navbar a {
+      color: var(--colore-testo);
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .navbar a:hover {
+      color: var(--colore-oro);
+    }
+
+    .navbar a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: var(--colore-oro);
+      transition: width 0.3s ease;
+    }
+
+    .navbar a:hover::after {
+      width: 100%;
+    }
+
+    /* SEZIONI CONTENUTO */
+    .content {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+
+    .content h2 {
+      font-size: 2.5rem;
+      color: var(--colore-oro);
+      margin-bottom: 2rem;
+      text-align: center;
+      font-weight: normal;
+      position: relative;
+    }
+
+    .content h2::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 2px;
+      background: var(--colore-oro);
+      margin: 1rem auto;
+    }
+
+    /* GRIGLIA LETTERE */
+    .grid-lettere {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .lettera-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 10px;
+      padding: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .lettera-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
+    }
+
+    .lettera-card h3 {
+      color: var(--colore-oro);
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+
+    .lettera-card .data {
+      color: var(--colore-testo-secondario);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+
+    /* SEZIONE CAPITOLI */
+    .capitoli-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .capitolo {
+      background: var(--colore-oro-trasparente);
+      border-left: 4px solid var(--colore-oro);
+      padding: 1.5rem;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .capitolo h3 {
+      color: var(--colore-oro);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .capitolo h3::before {
+      content: '📖';
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+
+    /* CONCETTI CHIAVE */
+    .concetti-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .concetto {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .concetto:hover {
+      transform: scale(1.05);
+    }
+
+    .concetto .icona {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .concetto h4 {
+      color: var(--colore-oro);
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: rgba(0, 0, 0, 0.5);
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+      color: var(--colore-testo-secondario);
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero .sottotitolo {
+        font-size: 1.1rem;
+      }
+      
+      .navbar ul {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .content {
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+      
+      .grid-lettere {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ANIMAZIONI SOTTILI */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .content > * {
+      animation: fadeIn 0.6s ease-out;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- HEADER EROICO -->
   <header class="hero">
-    <div class="overlay">
+    <div class="hero-content">
       <h1>Le Lettere di Antonino</h1>
-      <p>La chiamata nella chiamata – Si diventa ciò che si crede</p>
-      <a href="#lettere" class="btn">Leggi le Lettere</a>
+      <p class="sottotitolo">di Pradd Mill</p>
+      <p class="sottotitolo">La chiamata nella chiamata – Si diventa ciò che si crede</p>
+      <div class="hero-buttons">
+        <a href="#lettere" class="btn">Leggi le Lettere</a>
+        <a href="#capitoli" class="btn">Scopri il Cammino</a>
+      </div>
     </div>
   </header>
 
@@ -22,7 +313,8 @@
   <nav class="navbar">
     <ul>
       <li><a href="#lettere">Lettere</a></li>
-      <li><a href="#libri">Libri</a></li>
+      <li><a href="#capitoli">I Capitoli</a></li>
+      <li><a href="#concetti">Concetti Chiave</a></li>
       <li><a href="#contatti">Contatti</a></li>
     </ul>
   </nav>
@@ -30,35 +322,162 @@
   <!-- SEZIONE LETTERE -->
   <section id="lettere" class="content">
     <h2>Ultime Lettere</h2>
-    <article>
-      <h3>Lettera 1 – Il viaggio</h3>
-      <p>Un estratto della tua prima lettera o riflessione…</p>
-      <a href="#">Leggi di più</a>
-    </article>
-    <article>
-      <h3>Lettera 2 – La luce</h3>
-      <p>Breve introduzione alla seconda lettera…</p>
-      <a href="#">Leggi di più</a>
-    </article>
+    <p style="text-align: center; margin-bottom: 2rem; color: var(--colore-testo-secondario);">
+      Riflessioni, sogni, catechesi ed esperienze personali dal viaggio spirituale
+    </p>
+    
+    <div class="grid-lettere">
+      <article class="lettera-card">
+        <h3>Lettera del Risveglio</h3>
+        <div class="data">29 Luglio 2024</div>
+        <p>"Il numero 29 non è un caso. È il codice che porto con me dalla nascita, 
+        un mistero che ancora attende di essere completamente svelato..."</p>
+        <a href="#" class="btn" style="margin-top: 1rem; padding: 8px 20px; font-size: 0.9rem;">Leggi tutto</a>
+      </article>
+      
+      <article class="lettera-card">
+        <h3>Lettera dello Zero</h3>
+        <div class="data">15 Agosto 2024</div>
+        <p>"Essere uno zero accanto all'Uno non è umiliazione, è la più alta dignità. 
+        Significa riconoscere che il vero valore viene dall'Altro..."</p>
+        <a href="#" class="btn" style="margin-top: 1rem; padding: 8px 20px; font-size: 0.9rem;">Leggi tutto</a>
+      </article>
+      
+      <article class="lettera-card">
+        <h3>Lettera del Ritorno</h3>
+        <div class="data">1 Settembre 2024</div>
+        <p>"La seconda chiamata risuona più forte quando la notte è buia. 
+        È il richiamo di casa, della luce da cui siamo partiti e a cui torneremo..."</p>
+        <a href="#" class="btn" style="margin-top: 1rem; padding: 8px 20px; font-size: 0.9rem;">Leggi tutto</a>
+      </article>
+    </div>
   </section>
 
-  <!-- SEZIONE LIBRI -->
-  <section id="libri" class="content">
-    <h2>I Libri</h2>
-    <p>Qui potrai inserire i link per scaricare o acquistare i tuoi libri
-       quando saranno disponibili.</p>
+  <!-- SEZIONE CAPITOLI -->
+  <section id="capitoli" class="content">
+    <h2>Il Cammino dei 10 Capitoli</h2>
+    <p style="text-align: center; margin-bottom: 2rem; color: var(--colore-testo-secondario);">
+      La struttura narrativa del viaggio spirituale
+    </p>
+    
+    <div class="capitoli-container">
+      <div class="capitolo">
+        <h3>1. Prefazione</h3>
+        <p>Perché scrivo queste pagine. Le tre domande della vita: chi sono, cosa faccio, dove vado.</p>
+      </div>
+      
+      <div class="capitolo">
+        <h3>2. La prima chiamata</h3>
+        <p>Venire al mondo. Il giorno della nascita: il numero 29. Il mistero dei numeri nella mia vita.</p>
+      </div>
+      
+      <div class="capitolo">
+        <h3>3. I genitori: i primi angeli</h3>
+        <p>L'amore semplice e concreto di mamma e papà. La perdita e il vuoto interiore.</p>
+      </div>
+      
+      <div class="capitolo">
+        <h3>4. L'infanzia</h3>
+        <p>Imparare a camminare tra i pericoli. Gli scorpioni e i serpenti del mondo.</p>
+      </div>
+      
+      <div class="capitolo">
+        <h3>5. Il morso del peccato</h3>
+        <p>Le false luci del mondo. Il cioccolatino amaro che addormenta l'anima.</p>
+      </div>
+      
+      <div class="capitolo">
+        <h3>6. Lo zero accanto all'uno</h3>
+        <p>Essere un personaggio di serie B. Il valore degli altri come Uno.</p>
+      </div>
+      
+      <div class="capitolo">
+        <h3>7. Il lavoro e le sfide</h3>
+        <p>Camminare nel mondo senza smarrirsi. La fatica e la soddisfazione.</p>
+      </div>
+      
+      <div class="capitolo">
+        <h3>8. La seconda chiamata</h3>
+        <p>Il ritorno a casa. La fede come bussola. La preghiera che sostiene.</p>
+      </div>
+      
+      <div class="capitolo">
+        <h3>9. L'amore come eredità</h3>
+        <p>Dare e ricevere amore: il senso ultimo. Le piccole cose che restano.</p>
+      </div>
+      
+      <div class="capitolo">
+        <h3>10. Conclusione</h3>
+        <p>Un cammino che continua. La speranza di non aver perso la strada.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCETTI CHIAVE -->
+  <section id="concetti" class="content">
+    <h2>Concetti Chiave</h2>
+    <p style="text-align: center; margin-bottom: 2rem; color: var(--colore-testo-secondario);">
+      I pilastri del messaggio spirituale
+    </p>
+    
+    <div class="concetti-grid">
+      <div class="concetto">
+        <div class="icona">🔢</div>
+        <h4>Il Numero 29</h4>
+        <p>Simbolo della chiamata personale e del mistero della vita</p>
+      </div>
+      
+      <div class="concetto">
+        <div class="icona">⚡</div>
+        <h4>Il Peccato come Morso</h4>
+        <p>Metafora del mondo moderno che addormenta lo spirito</p>
+      </div>
+      
+      <div class="concetto">
+        <div class="icona">0️⃣1️⃣</div>
+        <h4>Zero accanto all'Uno</h4>
+        <p>Immagine dell'umiltà e del valore degli altri</p>
+      </div>
+      
+      <div class="concetto">
+        <div class="icona">🏠</div>
+        <h4>Il Ritorno a Casa</h4>
+        <p>La seconda chiamata, la riscoperta della luce</p>
+      </div>
+      
+      <div class="concetto">
+        <div class="icona">❤️</div>
+        <h4>Amore come Eredità</h4>
+        <p>Il senso ultimo del viaggio umano</p>
+      </div>
+    </div>
   </section>
 
   <!-- CONTATTI -->
   <section id="contatti" class="content">
     <h2>Contatti</h2>
-    <p>Scrivimi: <a href="mailto:info@tuodominio.it">info@tuodominio.it</a></p>
+    <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+      <p style="margin-bottom: 2rem; font-size: 1.1rem;">
+        "Le Lettere di Antonino non è solo un libro, ma un cammino di vita. 
+        È la testimonianza di un'anima che ha scelto di osservare il mondo con occhi semplici, 
+        cercando la luce nel buio, la chiamata dentro la chiamata."
+      </p>
+      <p style="margin-bottom: 2rem;">
+        <strong>Email:</strong> 
+        <a href="mailto:antonio1ag@proton.me" style="color: var(--colore-oro); text-decoration: none;">
+          antonio1ag@proton.me
+        </a>
+      </p>
+      <a href="#" class="btn">Canale Telegram</a>
+    </div>
   </section>
 
   <footer>
     <p>&copy; 2025 Le Lettere di Antonino – di Pradd Mill</p>
+    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.7;">
+      "Ogni parola è un piccolo ritorno verso casa"
+    </p>
   </footer>
 
 </body>
 </html>
-
