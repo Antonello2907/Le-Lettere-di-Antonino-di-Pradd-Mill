@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -14,6 +13,7 @@
       --colore-oro-trasparente: rgba(212, 175, 55, 0.1);
       --colore-testo: #f1f1f1;
       --colore-testo-secondario: #b8b8b8;
+      --verde-musica: #38a169;
     }
 
     * {
@@ -57,11 +57,39 @@
       letter-spacing: 2px;
     }
 
+    /* RIGA DEL SOTTOTITOLO CON PULSANTE AFFIANCATO */
+    .sottotitolo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 2rem;
+    }
+
     .hero .sottotitolo {
       font-size: 1.4rem;
-      margin-bottom: 2rem;
       color: var(--colore-testo-secondario);
       font-style: italic;
+      margin: 0;
+    }
+
+    /* STILE PULSANTE MUSICA (IDENTICO A QUELLO DELLA PIATTAFORMA ETICA) */
+    .music-btn {
+      background: var(--verde-musica);
+      border: none;
+      color: white;
+      font-size: 0.9rem;
+      padding: 8px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: 0.1s;
+      white-space: nowrap;
+    }
+    .music-btn:active {
+      transform: scale(0.97);
     }
 
     .btn {
@@ -296,11 +324,19 @@
 </head>
 <body>
 
+  <!-- AUDIO (AVE MARIA) -->
+  <audio id="aveMariaPlayer" loop preload="auto">
+    <source src="https://audio.jukehost.co.uk/019e13ba-1851-7027-b6da-389a408fe12c" type="audio/mpeg">
+  </audio>
+
   <!-- HEADER EROICO -->
   <header class="hero">
     <div class="hero-content">
       <h1>Le Lettere di Antonino</h1>
-      <p class="sottotitolo">di Pradd Mill</p>
+      <div class="sottotitolo-row">
+        <p class="sottotitolo">di Pradd Mill</p>
+        <button id="musicButton" class="music-btn">🎵 Ascolta l'Ave Maria</button>
+      </div>
       <p class="sottotitolo">La chiamata nella chiamata – Si diventa ciò che si crede</p>
       <div class="hero-buttons">
         <a href="https://antonello2907.github.io/Le-Lettere-di-Antonino-di-Pradd-Mill-1.Prefazione/" class="btn">Leggi le Lettere</a>
@@ -477,8 +513,39 @@
     <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.7;">
       "Ogni parola è un piccolo ritorno verso casa"
     </p>
+    <p style="margin-top: 1rem; font-size: 0.7rem; opacity: 0.6;">
+      Brano utilizzato ai sensi della norma
+    </p>
   </footer>
 
+  <script>
+    (function() {
+      var audio = document.getElementById('aveMariaPlayer');
+      var button = document.getElementById('musicButton');
+      
+      if (audio) audio.load();
+      
+      if (button) {
+        button.addEventListener('click', function() {
+          if (!audio) return;
+          
+          var playPromise = audio.play();
+          
+          if (playPromise !== undefined) {
+            playPromise.then(function() {
+              button.textContent = '🎵 In riproduzione...';
+              button.disabled = true;
+              button.style.opacity = '0.6';
+              button.style.cursor = 'default';
+            }).catch(function(error) {
+              console.error('Errore audio:', error);
+              button.textContent = '⚠️ Errore';
+              button.style.background = '#ef4444';
+            });
+          }
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
-
